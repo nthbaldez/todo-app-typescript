@@ -1,0 +1,14 @@
+li {
+  display: flex;
+  justify-content: space-between;
+}
+
+.inputContainer {
+  display: flex;
+  align-items: center;
+}
+
+.buttonRemove {
+  background: var(--very-dark-desaturated-blue);
+  border: 0;
+}

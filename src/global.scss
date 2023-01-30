@@ -1,0 +1,45 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bright-blue: hsl(220, 98%, 61%);
+  --very-dark-blue: hsl(235, 21%, 11%);
+  --very-dark-desaturated-blue: hsl(235, 24%, 19%);
+  --ligth-grayish-blue: hsl(234, 39%, 85%)
+  --ligh-grayish-blue-hover: hsl(236, 33%, 92%)
+  --dark-grayish-blue: hsl(234, 11%, 52%)
+  --very-dark-grayish-blue: hsl(233, 14%, 35%)
+}
+@media (max-width: 1080px) {
+  html {
+    font-size: 93.75%;
+  }
+}
+
+@media (max-width: 728px) {
+  html {
+    font-size: 87.5%;
+  }
+}
+
+body {
+  background: var(--very-dark-blue);
+  color: var(--white);
+  font-size: 18px;
+}
+
+body, input, textarea, select, button {
+  font: 400 1rem "Josefin Sans", sans-serif;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
