@@ -1,21 +1,40 @@
+import { ButtonsProps } from '../../interfaces';
 import styles from './styles.module.scss';
 
-export function FilterButtons() {
+export function FilterButtons( { showCompleted, showAllTodos, showAllActiveTodos }: ButtonsProps  ) {
 
-  const showOnlyActiveTodos = () => {
-    
+  const handleShowCompletedTodos = () => {
+    showCompleted();
+  }
+
+  const handleShowAllTodos = () => {
+    showAllTodos();
+  }
+
+  const handleShowAllActiveTodos = () => {
+    showAllActiveTodos();
   }
 
   return (
     <div className={styles.filterTodos}>
-      <button className={styles.filterButtons}>All</button>
       <button 
         className={styles.filterButtons}
-        onClick={showOnlyActiveTodos}
+        onClick={handleShowAllTodos}
+      >
+        All
+      </button>
+      <button 
+        className={styles.filterButtons}
+        onClick={handleShowAllActiveTodos}
       >
         Active
       </button>
-      <button className={styles.filterButtons}>Completed</button> 
+      <button 
+        onClick={handleShowCompletedTodos}
+        className={styles.filterButtons}
+      >
+        Completed
+      </button> 
     </div>
   )
 

@@ -6,4 +6,8 @@
 .filterButtons {
   background: var(--dark-grayish-blue);
   color: #fff;
+  
+  &:hover {
+    cursor: pointer;
+  }
 }
