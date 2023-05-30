@@ -1,19 +1,16 @@
+import { TodoType } from '../../interfaces';
 import styles from './styles.module.scss';
 import { useState } from 'react';
 
-interface TodoType {
-  key: string;
-  id: string;
-  content: string;
-  removeTodos: (id: string) => void;
-}
+export function Todo({ id, content, removeTodo, handleCheck }: TodoType) {
 
-export function Todo({ id, content, removeTodos }: TodoType) {
-
-  const [ check, setCheck ] = useState(false);
+  const [ check, setCheck ] = useState(true);
 
   const handleCheckTodo = () => {
     setCheck(!check);
+    
+    handleCheck(content, id, check);
+    console.log(check)
   }
 
   return (
@@ -21,13 +18,13 @@ export function Todo({ id, content, removeTodos }: TodoType) {
       <div className={styles.inputContainer}> 
         <input 
           onChange={handleCheckTodo}
-          onClick={handleCheckTodo} 
-          type="radio" 
-          checked={check ? true : false}
+          type="checkbox"
+          checked={!check}
         />
         <span>{content}</span>
       </div>
-      <button onClick={() => removeTodos(id)} className={styles.buttonRemove}>
+      <button 
+        onClick={() => removeTodo(id)} className={styles.buttonRemove}>
         <img src="/assets/icon-cross.svg" alt="Remove" />
       </button>
     </li>
