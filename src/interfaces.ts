@@ -19,7 +19,5 @@ export interface ProviderProps {
 }
 
 export interface ButtonsProps {
-  showCompleted: () => void;
-  showAllTodos: () => void;
-  showAllActiveTodos: () => void;
+  executeFilter: (value: string) => void;
 }

@@ -10,7 +10,6 @@ export function Todo({ id, content, removeTodo, handleCheck }: TodoType) {
     setCheck(!check);
     
     handleCheck(content, id, check);
-    console.log(check)
   }
 
   return (

@@ -11,9 +11,8 @@ export function List() {
 
   const [ todos, setTodos ] = useState<ITodoType[]>([]);
   const [ todo, setTodo ] = useState<string>('');
-  const [ completedTodos, setCompletedTodos ] = useState(false);
-  const [ showActive, setShowActive ] = useState(true);
-  const [ showAll, setShowAll ] = useState(true);
+  const [ temporaryTodosList, setTemporaryTodosList ] = useState<ITodoType[]>([]);
+  const [ filter, setFilter ] = useState(false);
 
   const handleStateTodoChange = (event: ChangeEvent<HTMLInputElement>): void => {
     setTodo(event.currentTarget.value);
@@ -73,19 +72,35 @@ export function List() {
     }
   }
 
-  const showCompletedTodos = () => {
-    setCompletedTodos(true);
-    setShowActive(false);
+  const handleFilter = (value: string) => {
+    if (value == 'active') {
+      setFilter(true)
+      filterActive()
+    } else if (value == 'completed') {
+      setFilter(true)
+      filterCompleted()
+    } else {
+      setFilter(false);
+      filterAll();
+    }
   }
 
-  const showAllTodos = () => {
-    setShowAll(true);
-  }
-
-  const showAllActiveTodos = () => {
-    setShowActive(true);
-    setCompletedTodos(false);
-  }
+  const filterActive = () => {
+    const arrTodosFiltered = todos.filter(todo => !todo.completed);
+    setTemporaryTodosList([...arrTodosFiltered]);
+    console.log(temporaryTodosList)
+  };
+  
+  const filterCompleted = () => {
+    const arrTodosFiltered = todos.filter(todo => todo.completed == true);
+    setTemporaryTodosList([...arrTodosFiltered]);
+    console.log(arrTodosFiltered)
+  };
+  
+  const filterAll = () => {
+    setTemporaryTodosList([...todos]);
+    console.log(todos)
+  };
 
   return (
     <main className={styles.listContainer}>
@@ -110,49 +125,43 @@ export function List() {
         />
       </div>
 
-      <ul>
-        {
-          todos.map(({ id, content, completed }) => {
-            if (completed && completedTodos) {
+      {
+        filter ? (
+          <ul>  
+            {temporaryTodosList.map(({ id, content }) => {
               return (
-                <Todo 
-                  key={id}
-                  content={content} 
-                  removeTodo={() => removeTodo(id)}
-                  handleCheck={handleCheckCompleted}
-                  id={id}
-                />
-              )
-            } else if (!completed && showActive) {
-              return (
-                <Todo 
-                  key={id}
-                  content={content} 
-                  removeTodo={() => removeTodo(id)}
-                  handleCheck={handleCheckCompleted}
-                  id={id}
-                />
-              )
-            } else if (showAll) {
-              return (
-                <Todo 
-                  key={id}
-                  content={content} 
-                  removeTodo={() => removeTodo(id)}
-                  handleCheck={handleCheckCompleted}
-                  id={id}
-                />
-              )
-            } else {
-              return null;
+                  <Todo 
+                    key={id}
+                    content={content} 
+                    removeTodo={() => removeTodo(id)}
+                    handleCheck={handleCheckCompleted}
+                    id={id}
+                  />
+                )
+              })
             }
-          })
-        }
-      </ul>
+          </ul>
+        ) : (
+          <ul>  
+          {todos.map(({ id, content }) => {
+            return (
+                <Todo 
+                  key={id}
+                  content={content} 
+                  removeTodo={() => removeTodo(id)}
+                  handleCheck={handleCheckCompleted}
+                  id={id}
+                />
+              )
+            })
+          }
+          </ul>
+        )
+      }
       
       <footer>
         <p>{todos.length} items</p>
-        <FilterButtons showCompleted={showCompletedTodos} showAllTodos={showAllTodos} showAllActiveTodos={showAllActiveTodos}/>
+        <FilterButtons executeFilter={handleFilter} />
         <button
           onClick={removeCompletedTodos}
         >
