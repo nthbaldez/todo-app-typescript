@@ -18,7 +18,7 @@
 <h2 id="layout">🎨 Layout</h2>
 
 <p align="center">
-    <img src="/images/app-image-1.png" alt="Image Example" width="400px">
+    <img src="./public/images/app-image-1.png" alt="Image Example" width="400px">
     <img src="../github/example.png" alt="Image Example" width="400px">
 </p>
 
