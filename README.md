@@ -19,7 +19,7 @@
 
 <p align="center">
     <img src="./public/images/app-image-1.png" alt="Image Example" width="400px">
-    <img src="../.github/example.png" alt="Image Example" width="400px">
+<!--     <img src="../.github/example.png" alt="Image Example" width="400px"> -->
 </p>
 
 <h2 id="technologies">💻 Technologies</h2>
