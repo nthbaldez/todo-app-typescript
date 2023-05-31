@@ -18,18 +18,13 @@
 <h2 id="layout">🎨 Layout</h2>
 
 <p align="center">
-<<<<<<< HEAD
     <img src="/images/app-image-1.png" alt="Image Example" width="400px">
     <img src="../github/example.png" alt="Image Example" width="400px">
-=======
-    <img src="./public/images/app-image-1.png" alt="Image Example" width="400px">
-<!--     <img src="../.github/example.png" alt="Image Example" width="400px"> -->
->>>>>>> e52cd92a44b5bec5807361662e2df5f649b965fc
 </p>
 
 <h2 id="technologies">💻 Technologies</h2>
 
-- React
+- React (useState, useMemo)
 - Typescript
 - Sass
 - react-transition-group
