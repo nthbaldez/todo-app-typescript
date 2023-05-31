@@ -19,7 +19,9 @@ export interface ProviderProps {
 }
 
 export interface FilterButtonsProps {
-  showActiveTodos: () => void;
-  filter: string;
-  setFilter: (filter: string) => void;
+  setFilter: (value: string) => void;
 }
+
+// export interface ListProps {
+//   tab: string;
+// }

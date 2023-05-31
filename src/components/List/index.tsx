@@ -1,17 +1,27 @@
 import styles from './styles.module.scss';
 
-import { ChangeEvent, KeyboardEvent, useState } from 'react';
+import { ChangeEvent, KeyboardEvent, useMemo, useState } from 'react';
 import { Todo } from '../Todo';
 import { FilterButtons } from '../FilterButtons/FilterButton';
 
 import { ITodoType } from '../../interfaces';
 import { v4 as uuidV4 } from 'uuid';
+import { filterTodos } from '../../utils';
 
 export function List() {
 
   const [ todos, setTodos ] = useState<ITodoType[]>([]);
   const [ todo, setTodo ] = useState('');
-  const [ filter, setFilter ] = useState('');
+  const [ filter, setFilter ] = useState('all');
+
+  const visibleTodos = useMemo(
+    () => filterTodos(todos, filter),
+    [todos, filter]
+  );
+
+  const handleFilter = (valueFilter: string) => {
+    setFilter(valueFilter);
+  }
 
   const handleStateTodoChange = (event: ChangeEvent<HTMLInputElement>): void => {
     setTodo(event.currentTarget.value);
@@ -65,12 +75,6 @@ export function List() {
     }
   }
 
-  const showActiveTodos = () => {
-    const arrFiltered = todos.map(todo => todo.completed == false);
-
-    return arrFiltered;
-  }
-
 
   return (
     <main className={styles.listContainer}>
@@ -96,7 +100,7 @@ export function List() {
       </div>
 
       <ul>
-        {todos.map(({ id, content }) => {
+        {visibleTodos.map(({ id, content }) => {
             return (
                 <Todo 
                   key={id}
@@ -113,7 +117,7 @@ export function List() {
       
       <footer>
         <p>{todos.length} items</p>
-        <FilterButtons showActiveTodos={showActiveTodos} filter={filter} setFilter={setFilter}/>
+        <FilterButtons setFilter={handleFilter}/>
         <button
           onClick={removeCompletedTodos}
         >
