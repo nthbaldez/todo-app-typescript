@@ -21,7 +21,3 @@ export interface ProviderProps {
 export interface FilterButtonsProps {
   setFilter: (value: string) => void;
 }
-
-// export interface ListProps {
-//   tab: string;
-// }

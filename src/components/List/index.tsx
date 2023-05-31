@@ -114,7 +114,6 @@ export function List() {
           }
       </ul>
         
-      
       <footer>
         <p>{todos.length} items</p>
         <FilterButtons setFilter={handleFilter}/>

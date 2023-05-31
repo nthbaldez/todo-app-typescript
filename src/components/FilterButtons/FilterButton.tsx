@@ -1,4 +1,3 @@
-import { SetStateAction } from 'react';
 import { FilterButtonsProps } from '../../interfaces';
 import styles from './styles.module.scss';
 
