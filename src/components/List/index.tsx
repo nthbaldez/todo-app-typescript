@@ -10,9 +10,8 @@ import { v4 as uuidV4 } from 'uuid';
 export function List() {
 
   const [ todos, setTodos ] = useState<ITodoType[]>([]);
-  const [ todo, setTodo ] = useState<string>('');
-  const [ temporaryTodosList, setTemporaryTodosList ] = useState<ITodoType[]>([]);
-  const [ filter, setFilter ] = useState(false);
+  const [ todo, setTodo ] = useState('');
+  const [ filter, setFilter ] = useState('');
 
   const handleStateTodoChange = (event: ChangeEvent<HTMLInputElement>): void => {
     setTodo(event.currentTarget.value);
@@ -46,17 +45,11 @@ export function List() {
 
   }
 
-  const handleCheckCompleted = ( content: string, id: string, completed: boolean ): void => {
-    const findTodo = todos.find(todo => todo.content == content);
-
-    const todoChecked = {
-      id,
-      content,
-      completed
-    };
-
-    const filteredTodosUncheckeds = todos.filter(todo => todo != findTodo);
-    setTodos([...filteredTodosUncheckeds, todoChecked]);
+  const toggleCheckTodo = ( id: string, completed: boolean ): void => {
+    const todoIndex = todos.findIndex(todo => todo.id == id);
+    const todosUpdated = todos;
+    todosUpdated[todoIndex].completed = completed;
+    setTodos(todosUpdated);
   }
 
   const removeCompletedTodos = (): void => {
@@ -72,35 +65,12 @@ export function List() {
     }
   }
 
-  const handleFilter = (value: string) => {
-    if (value == 'active') {
-      setFilter(true)
-      filterActive()
-    } else if (value == 'completed') {
-      setFilter(true)
-      filterCompleted()
-    } else {
-      setFilter(false);
-      filterAll();
-    }
+  const showActiveTodos = () => {
+    const arrFiltered = todos.map(todo => todo.completed == false);
+
+    return arrFiltered;
   }
 
-  const filterActive = () => {
-    const arrTodosFiltered = todos.filter(todo => !todo.completed);
-    setTemporaryTodosList([...arrTodosFiltered]);
-    console.log(temporaryTodosList)
-  };
-  
-  const filterCompleted = () => {
-    const arrTodosFiltered = todos.filter(todo => todo.completed == true);
-    setTemporaryTodosList([...arrTodosFiltered]);
-    console.log(arrTodosFiltered)
-  };
-  
-  const filterAll = () => {
-    setTemporaryTodosList([...todos]);
-    console.log(todos)
-  };
 
   return (
     <main className={styles.listContainer}>
@@ -125,43 +95,25 @@ export function List() {
         />
       </div>
 
-      {
-        filter ? (
-          <ul>  
-            {temporaryTodosList.map(({ id, content }) => {
-              return (
-                  <Todo 
-                    key={id}
-                    content={content} 
-                    removeTodo={() => removeTodo(id)}
-                    handleCheck={handleCheckCompleted}
-                    id={id}
-                  />
-                )
-              })
-            }
-          </ul>
-        ) : (
-          <ul>  
-          {todos.map(({ id, content }) => {
+      <ul>
+        {todos.map(({ id, content }) => {
             return (
                 <Todo 
                   key={id}
                   content={content} 
                   removeTodo={() => removeTodo(id)}
-                  handleCheck={handleCheckCompleted}
                   id={id}
+                  toggleTodoChecked={toggleCheckTodo}
                 />
               )
             })
           }
-          </ul>
-        )
-      }
+      </ul>
+        
       
       <footer>
         <p>{todos.length} items</p>
-        <FilterButtons executeFilter={handleFilter} />
+        <FilterButtons showActiveTodos={showActiveTodos} filter={filter} setFilter={setFilter}/>
         <button
           onClick={removeCompletedTodos}
         >

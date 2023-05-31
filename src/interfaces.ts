@@ -4,7 +4,7 @@ export interface TodoType {
   key: string;
   content: string;
   removeTodo: (id: string) => void;
-  handleCheck: ( content: string, id: string, completed: boolean ) => void;
+  toggleTodoChecked: (id: string, completed: boolean) => void;
   id: string;
 }
 
@@ -18,6 +18,8 @@ export interface ProviderProps {
   children: ReactNode;
 }
 
-export interface ButtonsProps {
-  executeFilter: (value: string) => void;
+export interface FilterButtonsProps {
+  showActiveTodos: () => void;
+  filter: string;
+  setFilter: (filter: string) => void;
 }

@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-between;
   flex-direction: column;
-  width: 540px;
+  max-width: 540px;
 
   margin: 0 auto;
   margin-top: -200px;
@@ -27,19 +27,20 @@
     align-items: center;
 
     button {
-      height: 28px;
-      width: 100px;
       margin-right: 18px;
+      width: 10rem;
+      padding: 8px 0;
     }
     input {
-      width: 98%;
+      padding: 0.875rem;
+      font-size: 1.2rem;
+      width: 100%;
       border: 0;
       background: var(--very-dark-desaturated-blue);
       border-radius: 2px;
       color: #fff;
       font-weight: 200;
       margin-left: 10px;
-      height: 1rem;
       outline: none;
     }
 
@@ -92,6 +93,7 @@
 
     button {
       all: unset;
+      cursor: pointer;
     }
   }
 
@@ -105,7 +107,6 @@
 
     .listContainer {
       height: 50vh;
-
       .userInput {
         padding: 40px;
       }

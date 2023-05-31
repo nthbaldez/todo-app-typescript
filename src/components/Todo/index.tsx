@@ -2,14 +2,13 @@ import { TodoType } from '../../interfaces';
 import styles from './styles.module.scss';
 import { useState } from 'react';
 
-export function Todo({ id, content, removeTodo, handleCheck }: TodoType) {
+export function Todo({ id, content, removeTodo, toggleTodoChecked }: TodoType) {
 
   const [ check, setCheck ] = useState(true);
 
   const handleCheckTodo = () => {
-    setCheck(!check);
-    
-    handleCheck(content, id, check);
+    setCheck(prev => !prev);
+    toggleTodoChecked(id, check);
   }
 
   return (
@@ -18,7 +17,6 @@ export function Todo({ id, content, removeTodo, handleCheck }: TodoType) {
         <input 
           onChange={handleCheckTodo}
           type="checkbox"
-          checked={!check}
         />
         <span>{content}</span>
       </div>

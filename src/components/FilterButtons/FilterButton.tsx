@@ -1,37 +1,37 @@
-import { ButtonsProps } from '../../interfaces';
+import { FilterButtonsProps } from '../../interfaces';
 import styles from './styles.module.scss';
 
-export function FilterButtons( { executeFilter }: ButtonsProps  ) {
+export function FilterButtons({ setFilter }: FilterButtonsProps) {
 
-  const handleShowCompletedTodos = () => {
-    executeFilter('completed');
+  const handleActive = () => {
+    setFilter('active');
   }
 
-  const handleShowAllTodos = () => {
-    executeFilter('all');
+  const handleAll = () => {
+    setFilter('all');
   }
 
-  const handleShowAllActiveTodos = () => {
-    executeFilter('active');
+  const handleCompleted = () => {
+    setFilter('completed');
   }
 
   return (
     <div className={styles.filterTodos}>
       <button 
         className={styles.filterButtons}
-        onClick={handleShowAllTodos}
+        onClick={handleAll}
       >
         All
       </button>
       <button 
         className={styles.filterButtons}
-        onClick={handleShowAllActiveTodos}
+        onClick={handleActive}
       >
         Active
       </button>
       <button 
-        onClick={handleShowCompletedTodos}
         className={styles.filterButtons}
+        onClick={handleCompleted}
       >
         Completed
       </button> 
