@@ -1,6 +1,10 @@
 li {
   display: flex;
   justify-content: space-between;
+
+  &:active {
+    cursor: grab;
+  }
 }
 
 .inputContainer {

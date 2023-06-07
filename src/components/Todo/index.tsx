@@ -3,20 +3,21 @@ import styles from './styles.module.scss';
 import { useState } from 'react';
 
 export function Todo({ id, content, removeTodo, toggleTodoChecked }: TodoType) {
-
-  const [ check, setCheck ] = useState(true);
+  
+  const [ check, setCheck ] = useState(false);
 
   const handleCheckTodo = () => {
-    setCheck(prev => !prev);
-    toggleTodoChecked(id, check);
+    toggleTodoChecked(id, !check);
   }
 
   return (
-    <li key={id}>
+    <li key={id} draggable>
       <div className={styles.inputContainer}> 
         <input 
-          onChange={handleCheckTodo}
+          onClick={handleCheckTodo}
+          onChange={() => setCheck(!check)}
           type="checkbox"
+          id="checkbox"
         />
         <span>{content}</span>
       </div>

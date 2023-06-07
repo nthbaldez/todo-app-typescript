@@ -4,6 +4,8 @@ import { ChangeEvent, KeyboardEvent, useMemo, useState } from 'react';
 import { Todo } from '../Todo';
 import { FilterButtons } from '../FilterButtons/FilterButton';
 
+import { ReactSortable } from "react-sortablejs";
+
 import { ITodoType } from '../../interfaces';
 import { v4 as uuidV4 } from 'uuid';
 import { filterTodos } from '../../utils';
@@ -13,7 +15,7 @@ export function List() {
   const [ todos, setTodos ] = useState<ITodoType[]>([]);
   const [ todo, setTodo ] = useState('');
   const [ filter, setFilter ] = useState('all');
-
+  
   const visibleTodos = useMemo(
     () => filterTodos(todos, filter),
     [todos, filter]
@@ -55,7 +57,7 @@ export function List() {
 
   }
 
-  const toggleCheckTodo = ( id: string, completed: boolean ): void => {
+  const toggleTodoChecked = ( id: string, completed: boolean): void => {
     const todoIndex = todos.findIndex(todo => todo.id == id);
     const todosUpdated = todos;
     todosUpdated[todoIndex].completed = completed;
@@ -99,20 +101,21 @@ export function List() {
         />
       </div>
 
-      <ul>
-        {visibleTodos.map(({ id, content }) => {
+        <ReactSortable tag="ul" list={todos} setList={setTodos}> 
+          {visibleTodos.map(({ id, content }) => {
             return (
                 <Todo 
                   key={id}
                   content={content} 
                   removeTodo={() => removeTodo(id)}
                   id={id}
-                  toggleTodoChecked={toggleCheckTodo}
+                  toggleTodoChecked={toggleTodoChecked}
                 />
               )
             })
           }
-      </ul>
+        </ReactSortable>
+        
         
       <footer>
         <p>{todos.length} items</p>
