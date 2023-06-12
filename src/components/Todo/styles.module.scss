@@ -11,7 +11,9 @@ li {
   display: flex;
   align-items: center;
   font-size: inherit;
+
   input {
+    --webkit-appearance: checkbox;
     cursor: pointer;
   }
 }
