@@ -11,7 +11,7 @@ export function Todo({ id, content, removeTodo, toggleTodoChecked }: TodoType) {
   }
 
   return (
-    <li key={id} draggable>
+    <li key={id}>
       <div className={styles.inputContainer}> 
         <input 
           onClick={handleCheckTodo}
