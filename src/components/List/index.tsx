@@ -4,8 +4,6 @@ import { ChangeEvent, KeyboardEvent, useMemo, useState } from 'react';
 import { Todo } from '../Todo';
 import { FilterButtons } from '../FilterButtons/FilterButton';
 
-import { ReactSortable } from "react-sortablejs";
-
 import { ITodoType } from '../../interfaces';
 import { v4 as uuidV4 } from 'uuid';
 import { filterTodos } from '../../utils';
@@ -77,7 +75,6 @@ export function List() {
     }
   }
 
-
   return (
     <main className={styles.listContainer}>
       <h1>TODO</h1>
@@ -100,23 +97,18 @@ export function List() {
           value={todo}
         />
       </div>
-
-        <ReactSortable tag="ul" list={todos} setList={setTodos}> 
-          {visibleTodos.map(({ id, content }) => {
-            return (
-                <Todo 
-                  key={id}
-                  content={content} 
-                  removeTodo={() => removeTodo(id)}
-                  id={id}
-                  toggleTodoChecked={toggleTodoChecked}
-                />
-              )
-            })
+        {visibleTodos.map(({ id, content }) => {
+          return (
+              <Todo 
+                key={id}
+                content={content} 
+                removeTodo={() => removeTodo(id)}
+                id={id}
+                toggleTodoChecked={toggleTodoChecked}
+              />
+            )
+          })
           }
-        </ReactSortable>
-        
-        
       <footer>
         <p>{todos.length} items</p>
         <FilterButtons setFilter={handleFilter}/>
